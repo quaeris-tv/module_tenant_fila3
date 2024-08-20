@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Modules\Tenant\Services;
 
 // use Illuminate\Support\Facades\Storage;
+
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -422,7 +424,13 @@ class TenantService
         /**
          * @var array
          */
+        try {
+            //code...
+        
         $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+        } catch (\Exception $e) {
+            throw new Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
+        }
         $modules = [];
         foreach ($json as $name => $enabled) {
             if (! $enabled) {
