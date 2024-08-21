@@ -73,6 +73,9 @@ trait SushiToJsons
                 }
                 $content = json_encode($item, JSON_PRETTY_PRINT);
                 $file = $model->getJsonFile();
+                if (! File::exists(\dirname($file))) {
+                    File::makeDirectory(\dirname($file), 0755, true, true);
+                }
                 File::put($file, $content);
             }
         );
