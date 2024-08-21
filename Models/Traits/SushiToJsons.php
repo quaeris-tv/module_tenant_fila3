@@ -11,6 +11,9 @@ namespace Modules\Tenant\Models\Traits;
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
 
+use function Safe\json_encode;
+use function Safe\unlink;
+
 trait SushiToJsons
 {
     public function getSushiRows(): array
