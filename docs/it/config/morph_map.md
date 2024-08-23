@@ -1,5 +1,5 @@
 <?php
 
-use Modules\User\Models\User;
 
-return ['user' => User::class];
+
+return ['user' => \Modules\Xot\Datas\XotData::make()->getUserClass()];

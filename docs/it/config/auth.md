@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Modules\User\Models\User;
+
 
 return [
     /*
@@ -72,8 +72,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            // 'model' => App\User::class,
-            'model' => User::class,
+            // 'model' => App\\Modules\Xot\Datas\XotData::make()->getUserClass(),
+            'model' => \Modules\Xot\Datas\XotData::make()->getUserClass(),
         ],
 
         // 'users' => [
