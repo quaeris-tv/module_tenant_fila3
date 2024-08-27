@@ -103,7 +103,7 @@ class TenantService
      * ret_old \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed.
      * ret_old1 \Illuminate\Config\Repository|mixed.
      */
-    public static function config(string $key, string|int|array|null $default = null): float|int|string|array|null
+    public static function config(string $key, string|int|array $default = null): float|int|string|array|null
     {
         /*
         if(app()->runningInConsole()){
