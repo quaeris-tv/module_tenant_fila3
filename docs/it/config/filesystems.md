@@ -53,6 +53,7 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => true,
         ],
         'public_html' => [
             'driver' => 'local',
@@ -60,18 +61,21 @@ return [
             //'url' => url('/'),
             'url' => '/',
             'visibility' => 'public',
+            'throw' => true,
         ],
         'videos' => [
             'driver' => 'local',
             'root' => public_path('/videos'),
             'url' => '/',
             'visibility' => 'public',
+            'throw' => true,
         ],
         /*
         'photos' => [
             'driver' => 'local',
             'root' => public_path('/photos'),
             'visibility' => 'public',
+            'throw' => true,
         ],
         */
         'photos' => [
@@ -94,6 +98,7 @@ return [
             'root' => base_path('../cache'),
             //'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => true,
         ],
 
         's3' => [
@@ -115,6 +120,7 @@ return [
             'root' => public_path('/uploads/photos'),
             'url' => '/uploads/photos',
             'visibility' => 'public',
+            'throw' => true,
         ],
     ],
 ];
