@@ -17,7 +17,7 @@
         "role": "Developer"
     }],
     "require": {
-        
+
         "thecodingmachine/safe": "^2.5"
     },
     "require_comment": {
@@ -74,7 +74,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Tenant\\": ""
+            "Modules\\Tenant\\": "",
+            "Modules\\Tenant\\Database\\Factories\\": "database/factories/",
+            "Modules\\Tenant\\Database\\Seeders\\": "database/seeders/"
         }
     },
     "scripts": {
