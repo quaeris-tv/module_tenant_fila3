@@ -34,7 +34,7 @@
         "nesbot/carbon": "*",
         "nette/php-generator": "*",
         "nunomaduro/phpinsights": "^2.9",
-        "orchestra/testbench": "*",
+        "orchestra/testbench": "^9.4",
         "pestphp/pest": "*",
         "pestphp/pest-plugin-laravel": "*",
         "phpunit/phpunit": "*",
