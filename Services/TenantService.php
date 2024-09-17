@@ -44,6 +44,9 @@ class TenantService
         if (isset($_SERVER['SERVER_NAME']) && '127.0.0.1' !== $_SERVER['SERVER_NAME']) {
             $server_name = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
         }
+        if(!is_string($server_name)) {
+            $server_name = $default;
+        }
         $server_name = Str::of($server_name)->replace('www.', '')->toString();
         // Assert::string($server_name = Str::replace('www.', '', $server_name), 'wip');
         // */
