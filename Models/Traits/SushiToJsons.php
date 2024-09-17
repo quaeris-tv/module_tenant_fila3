@@ -44,7 +44,9 @@ trait SushiToJsons
     {
         $tbl = $this->getTable();
         $id = $this->getKey();
+
         $filename = 'database/content/'.$tbl.'/'.$id.'.json';
+
         $file = TenantService::filePath($filename);
 
         return $file;
