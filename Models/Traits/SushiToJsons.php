@@ -45,7 +45,7 @@ trait SushiToJsons
     public function getJsonFile(): string
     {
         Assert::string($tbl = $this->getTable());
-        $id = $this->getKey();
+        Assert::string($id = $this->getKey());
 
         $filename = 'database/content/'.$tbl.'/'.$id.'.json';
 
