@@ -16,10 +16,11 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Nwidart\Modules\Facades\Module;
 
-use function Safe\preg_replace;
-use function Safe\realpath;
-
 use Webmozart\Assert\Assert;
+
+use function Safe\preg_replace;
+
+use function Safe\realpath;
 
 /**
  * Class TenantService.
@@ -283,7 +284,8 @@ class TenantService
         // $model = app($class);
         if (! \is_string($class)) {
             if (\is_array($class)) {
-                return $class[0];
+                Assert::string($res = $class[0]);
+                return $res;
             }
 
             dddx(
