@@ -14,6 +14,8 @@ use Modules\Tenant\Services\TenantService;
 use function Safe\json_encode;
 use function Safe\unlink;
 
+use Webmozart\Assert\Assert;
+
 trait SushiToJsons
 {
     use \Sushi\Sushi;
@@ -42,9 +44,12 @@ trait SushiToJsons
 
     public function getJsonFile(): string
     {
-        $tbl = $this->getTable();
-        $id = $this->getKey();
-        $file = TenantService::filePath('database/content/'.$tbl.'/'.$id.'.json');
+        Assert::string($tbl = $this->getTable());
+        Assert::string($id = $this->getKey());
+
+        $filename = 'database/content/'.$tbl.'/'.$id.'.json';
+
+        $file = TenantService::filePath($filename);
 
         return $file;
     }
