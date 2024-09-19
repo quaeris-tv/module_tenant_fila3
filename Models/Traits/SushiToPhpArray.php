@@ -58,6 +58,8 @@ trait SushiToPhpArray
          */
         static::creating(
             function ($model): void {
+                // Arr::keyBy($array,
+
                 dd($model->toArray());
             }
         );
