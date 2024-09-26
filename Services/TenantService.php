@@ -231,7 +231,14 @@ class TenantService
     public static function getConfig(string $name): array
     {
         $path = self::filePath($name.'.php');
-        Assert::isArray($data = File::getRequire($path));
+        try {
+            $data = File::getRequire($path);
+        } catch (\Exception $e) {
+            $data = [];
+        }
+        if (! \is_array($data)) {
+            $data = [];
+        }
 
         return $data;
     }
