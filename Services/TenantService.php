@@ -16,11 +16,10 @@ use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Nwidart\Modules\Facades\Module;
 
-use Webmozart\Assert\Assert;
-
 use function Safe\preg_replace;
-
 use function Safe\realpath;
+
+use Webmozart\Assert\Assert;
 
 /**
  * Class TenantService.
@@ -44,7 +43,7 @@ class TenantService
         if (isset($_SERVER['SERVER_NAME']) && '127.0.0.1' !== $_SERVER['SERVER_NAME']) {
             $server_name = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
         }
-        if(!is_string($server_name)) {
+        if (! is_string($server_name)) {
             $server_name = $default;
         }
         $server_name = Str::of($server_name)->replace('www.', '')->toString();
@@ -169,7 +168,8 @@ class TenantService
                 $default = Arr::get($original_conf, 'default', null);
             }
             if (null == $default) {
-                $default = 'mysql';
+                // $default = 'mysql';
+                $default = env('DB_CONNECTION', 'mysql');
             }
 
             /**
@@ -288,6 +288,7 @@ class TenantService
         if (! \is_string($class)) {
             if (\is_array($class)) {
                 Assert::string($res = $class[0]);
+
                 return $res;
             }
 
