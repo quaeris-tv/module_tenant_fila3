@@ -170,6 +170,7 @@ class TenantService
             if (null == $default) {
                 // $default = 'mysql';
                 $default = env('DB_CONNECTION', 'mysql');
+                dddx($default);
             }
 
             /**
