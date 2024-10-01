@@ -8,16 +8,17 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
-use Illuminate\Support\Facades\File;
-use Modules\Tenant\Services\TenantService;
 use League\Csv\Reader;
 use League\Csv\Writer;
-
-
-use function Safe\json_encode;
 use function Safe\unlink;
+use Illuminate\Support\Arr;
+
 
 use Webmozart\Assert\Assert;
+use function Safe\json_encode;
+
+use Illuminate\Support\Facades\File;
+use Modules\Tenant\Services\TenantService;
 
 trait SushiToCsv
 {
@@ -47,6 +48,13 @@ trait SushiToCsv
         return $path;
     }
 
+    public function getCsvHeader(): array
+    {
+        $reader = Reader::createFromPath($this->getCsvPath(), 'r');
+        $reader->setHeaderOffset(0);
+        return $reader->getHeader();
+    }
+
     /**
      * bootUpdater function.
      */
@@ -58,7 +66,6 @@ trait SushiToCsv
          */
         static::creating(
             function ($model): void {
-                
                 $model->id = intval($model->max('id')) + 1;
                 $model->updated_at = now();
                 $model->updated_by = authId();
@@ -66,27 +73,18 @@ trait SushiToCsv
                 $model->created_by = authId();
                 
                 $data = $model->toArray();
-                $writer = Writer::createFromPath($model->getCsvPath(), 'a+'); // 'a+' per appendere al file
-                $reader = Reader::createFromPath($model->getCsvPath(), 'r');
-                $reader->setHeaderOffset(0);
+                $writer = Writer::createFromPath($model->getCsvPath(), 'a+'); 
+                $header=$model->getCsvHeader();
+                
                 
                 $item = [];
-                foreach ($reader->getHeader() as $name ) {
+                foreach ($header as $name ) {
                     $value = $data[$name] ?? null;
                     $item[$name] = $value;
                 }
                 
-                $res=$writer->insertOne($item);
-                //dddx($res);// 4 ??
-                /*
+                $writer->insertOne($item);
                 
-                $content = json_encode($item, JSON_PRETTY_PRINT);
-                $file = $model->getJsonFile();
-                if (! File::exists(\dirname($file))) {
-                    File::makeDirectory(\dirname($file), 0755, true, true);
-                }
-                File::put($file, $content);
-                */
             }
         );
         /*
@@ -94,11 +92,19 @@ trait SushiToCsv
          */
         static::updating(
             function ($model): void {
-                $file = $model->getJsonFile();
+                $rows=$model->getSushiRows();
+                $rows=Arr::keyBy($rows,'id');
+                $id=$model->getKey();
                 $model->updated_at = now();
                 $model->updated_by = authId();
-                $content = $model->toJson(JSON_PRETTY_PRINT);
-                File::put($file, $content);
+                $new=array_merge($rows[$id],$model->toArray());
+                $rows[$id]=$new;
+                $dataArray=array_values($rows);
+                //$header=$model->getCsvHeader();
+                $header=array_keys($new);
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+'); 
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray); 
             }
         );
         // -------------------------------------------------------------------------------------
@@ -109,7 +115,15 @@ trait SushiToCsv
 
         static::deleting(
             function ($model): void {
-                unlink($model->getJsonFile());
+                $rows=$model->getSushiRows();
+                $rows=Arr::keyBy($rows,'id');
+                $id=$model->getKey();
+                unset($rows[$id]);
+                $dataArray=array_values($rows);
+                $header=$model->getCsvHeader();
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+'); 
+                $writer->insertOne($header);
+                $writer->insertAll($dataArray); 
             }
         );
 
