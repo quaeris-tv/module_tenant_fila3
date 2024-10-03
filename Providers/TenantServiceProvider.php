@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
+use function is_array;
 use function Safe\realpath;
 
 class TenantServiceProvider extends XotBaseServiceProvider
@@ -39,7 +40,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function registerMorphMap(): void
     {
         $map = TenantService::config('morph_map');
-        if (! \is_array($map)) {
+        if (! is_array($map)) {
             $map = [];
         }
 

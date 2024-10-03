@@ -8,17 +8,12 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Models\Traits;
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\File;
 use League\Csv\Reader;
 use League\Csv\Writer;
-use function Safe\unlink;
-use Illuminate\Support\Arr;
-
-
-use Webmozart\Assert\Assert;
-use function Safe\json_encode;
-
-use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
+use Webmozart\Assert\Assert;
 
 trait SushiToCsv
 {
@@ -35,14 +30,15 @@ trait SushiToCsv
         $records = $csv->getRecords(); // an Iterator object containing arrays
         // $records = $csv->getRecordsAsObject(MyDTO::class); // an Iterator object containing MyDTO objects
         $rows = iterator_to_array($records);
-        $rows= array_values($rows);
+        $rows = array_values($rows);
+
         return $rows;
     }
 
     public function getCsvPath(): string
     {
         Assert::string($tbl = $this->getTable());
-        $file=$tbl.'.csv';
+        $file = $tbl.'.csv';
         $path = TenantService::filePath($file);
 
         return $path;
@@ -52,6 +48,7 @@ trait SushiToCsv
     {
         $reader = Reader::createFromPath($this->getCsvPath(), 'r');
         $reader->setHeaderOffset(0);
+
         return $reader->getHeader();
     }
 
@@ -66,25 +63,24 @@ trait SushiToCsv
          */
         static::creating(
             function ($model): void {
-                $model->id = intval($model->max('id')) + 1;
+                $model->id = (int) ($model->max('id')) + 1;
                 $model->updated_at = now();
                 $model->updated_by = authId();
                 $model->created_at = now();
                 $model->created_by = authId();
-                
+
                 $data = $model->toArray();
-                $writer = Writer::createFromPath($model->getCsvPath(), 'a+'); 
-                $header=$model->getCsvHeader();
-                
-                
+                $writer = Writer::createFromPath($model->getCsvPath(), 'a+');
+                $header = $model->getCsvHeader();
+
                 $item = [];
-                foreach ($header as $name ) {
+                foreach ($header as $name) {
                     $value = $data[$name] ?? null;
                     $item[$name] = $value;
                 }
-                
+
                 $writer->insertOne($item);
-                
+
             }
         );
         /*
@@ -92,19 +88,19 @@ trait SushiToCsv
          */
         static::updating(
             function ($model): void {
-                $rows=$model->getSushiRows();
-                $rows=Arr::keyBy($rows,'id');
-                $id=$model->getKey();
+                $rows = $model->getSushiRows();
+                $rows = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
                 $model->updated_at = now();
                 $model->updated_by = authId();
-                $new=array_merge($rows[$id],$model->toArray());
-                $rows[$id]=$new;
-                $dataArray=array_values($rows);
+                $new = array_merge($rows[$id], $model->toArray());
+                $rows[$id] = $new;
+                $dataArray = array_values($rows);
                 //$header=$model->getCsvHeader();
-                $header=array_keys($new);
-                $writer = Writer::createFromPath($model->getCsvPath(), 'w+'); 
+                $header = array_keys($new);
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
                 $writer->insertOne($header);
-                $writer->insertAll($dataArray); 
+                $writer->insertAll($dataArray);
             }
         );
         // -------------------------------------------------------------------------------------
@@ -115,15 +111,15 @@ trait SushiToCsv
 
         static::deleting(
             function ($model): void {
-                $rows=$model->getSushiRows();
-                $rows=Arr::keyBy($rows,'id');
-                $id=$model->getKey();
+                $rows = $model->getSushiRows();
+                $rows = Arr::keyBy($rows, 'id');
+                $id = $model->getKey();
                 unset($rows[$id]);
-                $dataArray=array_values($rows);
-                $header=$model->getCsvHeader();
-                $writer = Writer::createFromPath($model->getCsvPath(), 'w+'); 
+                $dataArray = array_values($rows);
+                $header = $model->getCsvHeader();
+                $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
                 $writer->insertOne($header);
-                $writer->insertAll($dataArray); 
+                $writer->insertAll($dataArray);
             }
         );
 
