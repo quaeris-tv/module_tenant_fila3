@@ -11,6 +11,8 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\QueueableAction\QueueableAction;
 
+use function in_array;
+
 class GetDomainsArrayAction
 {
     use QueueableAction;
@@ -36,7 +38,7 @@ class GetDomainsArrayAction
         $res = [];
         foreach ($directories as $dir) {
             $name = Str::after($dir, $path.'/');
-            if (\in_array($name, ['lang'], true)) {
+            if (in_array($name, ['lang'], true)) {
                 continue;
             }
             $res[$name] = $this->recurse($dir);

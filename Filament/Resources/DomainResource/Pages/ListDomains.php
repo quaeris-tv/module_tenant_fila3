@@ -8,14 +8,14 @@ declare(strict_types=1);
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
 use Filament\Actions;
-use Filament\Tables\Table;
-use Modules\UI\Enums\TableLayoutEnum;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\FiltersLayout;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\ActionsPosition;
-use Modules\Xot\Filament\Traits\TransTrait;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Tables\Table;
 use Modules\Tenant\Filament\Resources\DomainResource;
+use Modules\UI\Enums\TableLayoutEnum;
+use Modules\Xot\Filament\Traits\TransTrait;
 
 class ListDomains extends ListRecords
 {
@@ -24,13 +24,6 @@ class ListDomains extends ListRecords
     public TableLayoutEnum $layoutView = TableLayoutEnum::LIST;
 
     protected static string $resource = DomainResource::class;
-
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
 
     public function table(Table $table): Table
     {
@@ -66,6 +59,13 @@ class ListDomains extends ListRecords
                 ->sortable()
                 ->weight('medium')
                 ->alignLeft(),
+        ];
+    }
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make(),
         ];
     }
 }
