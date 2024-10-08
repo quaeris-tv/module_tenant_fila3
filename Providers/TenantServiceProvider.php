@@ -28,12 +28,11 @@ class TenantServiceProvider extends XotBaseServiceProvider
         $this->registerDB();
         $this->registerMorphMap();
         $this->publishConfig();
-
     }
 
     public function publishConfig(): void
     {
-        //---
+        // ---
     }
 
     public function registerMorphMap(): void
@@ -48,7 +47,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     public function registerDB(): void
     {
-        if (Request::has('act') && Request::input('act') === 'migrate') {
+        if (Request::has('act') && 'migrate' === Request::input('act')) {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
         }

@@ -164,10 +164,10 @@ class TenantService
         // -- replicazione liveuser con lu.. tenere lu anche in database
         if ('database' === $key) {
             $default = Arr::get($extra_conf, 'default', null);
-            if (null == $default) {
+            if (null === $default) {
                 $default = Arr::get($original_conf, 'default', null);
             }
-            if (null == $default) {
+            if (null === $default) {
                 // $default = 'mysql';
                 $default = env('DB_CONNECTION', 'mysql');
             }
