@@ -10,7 +10,9 @@ namespace Modules\Tenant\Models\Traits;
 
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
+use Webmozart\Assert\Assert;
 
+use function dirname;
 use function Safe\json_encode;
 use function Safe\unlink;
 
@@ -42,9 +44,12 @@ trait SushiToJsons
 
     public function getJsonFile(): string
     {
-        $tbl = $this->getTable();
-        $id = $this->getKey();
-        $file = TenantService::filePath('database/content/'.$tbl.'/'.$id.'.json');
+        Assert::string($tbl = $this->getTable());
+        Assert::string($id = $this->getKey());
+
+        $filename = 'database/content/'.$tbl.'/'.$id.'.json';
+
+        $file = TenantService::filePath($filename);
 
         return $file;
     }
@@ -73,8 +78,8 @@ trait SushiToJsons
                 }
                 $content = json_encode($item, JSON_PRETTY_PRINT);
                 $file = $model->getJsonFile();
-                if (! File::exists(\dirname($file))) {
-                    File::makeDirectory(\dirname($file), 0755, true, true);
+                if (! File::exists(dirname($file))) {
+                    File::makeDirectory(dirname($file), 0755, true, true);
                 }
                 File::put($file, $content);
             }

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Schema;
 use Modules\Tenant\Services\TenantService;
 use Modules\Xot\Providers\XotBaseServiceProvider;
 
+use function is_array;
 use function Safe\realpath;
 
 class TenantServiceProvider extends XotBaseServiceProvider
@@ -25,7 +26,29 @@ class TenantServiceProvider extends XotBaseServiceProvider
     public function bootCallback(): void
     {
         $this->mergeConfigs();
+        $this->registerDB();
+        $this->registerMorphMap();
+        $this->publishConfig();
 
+    }
+
+    public function publishConfig(): void
+    {
+        //---
+    }
+
+    public function registerMorphMap(): void
+    {
+        $map = TenantService::config('morph_map');
+        if (! is_array($map)) {
+            $map = [];
+        }
+
+        Relation::morphMap($map);
+    }
+
+    public function registerDB(): void
+    {
         if (Request::has('act') && Request::input('act') === 'migrate') {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
@@ -35,13 +58,6 @@ class TenantServiceProvider extends XotBaseServiceProvider
         // Database connection [mysql] not configured.
         DB::reconnect();
         Schema::defaultStringLength(191);
-
-        $map = TenantService::config('morph_map');
-        if (! \is_array($map)) {
-            $map = [];
-        }
-
-        Relation::morphMap($map);
     }
 
     public function registerCallback(): void

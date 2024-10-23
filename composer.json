@@ -17,37 +17,8 @@
         "role": "Developer"
     }],
     "require": {
-
-        "thecodingmachine/safe": "^2.5"
     },
-    "require_comment": {
-        "laraxot/module_xot_fila3": "*"
-    },
-    "require-dev_comment": {
-        "barryvdh/laravel-ide-helper": "*",
-        "driftingly/rector-laravel": "^0.26.2",
-        "enlightn/enlightn": "^2.5",
-        "fakerphp/faker": "*",
-        "friendsofphp/php-cs-fixer": "*",
-        "larastan/larastan": "*",
-        "laravel/pint": "^1.13",
-        "nesbot/carbon": "*",
-        "nette/php-generator": "*",
-        "nunomaduro/phpinsights": "^2.9",
-        "orchestra/testbench": "^9.4",
-        "pestphp/pest": "*",
-        "pestphp/pest-plugin-laravel": "*",
-        "phpunit/phpunit": "*",
-        "rector/rector": "*",
-        "spatie/laravel-typescript-transformer": "*",
-        "spatie/pest-plugin-snapshots": "*",
-        "spatie/phpunit-snapshot-assertions": "*",
-        "spatie/test-time": "*",
-        "symplify/phpstan-rules": "*",
-        "thecodingmachine/phpstan-safe-rule": "^1.2",
-        "tightenco/duster": "*",
-        "vimeo/psalm": "*"
-    },
+    
     "repositories_comment": [
         {
             "type": "path",
