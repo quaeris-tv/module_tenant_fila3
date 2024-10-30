@@ -10,11 +10,11 @@ namespace Modules\Tenant\Models\Traits;
 
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
-use Webmozart\Assert\Assert;
 
-use function dirname;
 use function Safe\json_encode;
 use function Safe\unlink;
+
+use Webmozart\Assert\Assert;
 
 trait SushiToJsons
 {
@@ -78,8 +78,8 @@ trait SushiToJsons
                 }
                 $content = json_encode($item, JSON_PRETTY_PRINT);
                 $file = $model->getJsonFile();
-                if (! File::exists(dirname($file))) {
-                    File::makeDirectory(dirname($file), 0755, true, true);
+                if (! File::exists(\dirname($file))) {
+                    File::makeDirectory(\dirname($file), 0755, true, true);
                 }
                 File::put($file, $content);
             }

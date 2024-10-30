@@ -11,8 +11,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Spatie\QueueableAction\QueueableAction;
 
-use function in_array;
-
 class GetDomainsArrayAction
 {
     use QueueableAction;
@@ -33,12 +31,12 @@ class GetDomainsArrayAction
 
     public function recurse(string $path): array
     {
-        $filesystem = new Filesystem;
+        $filesystem = new Filesystem();
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
             $name = Str::after($dir, $path.'/');
-            if (in_array($name, ['lang'], true)) {
+            if (\in_array($name, ['lang'], true)) {
                 continue;
             }
             $res[$name] = $this->recurse($dir);
@@ -51,8 +49,8 @@ class GetDomainsArrayAction
     {
         $res = [];
         foreach ($data as $k0 => $v0) {
-            $newkey = ($k === '') ? $k0 : $k0.'.'.$k;
-            if ($v0 === []) {
+            $newkey = ('' === $k) ? $k0 : $k0.'.'.$k;
+            if ([] === $v0) {
                 $res[] = $newkey;
             }
 

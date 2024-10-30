@@ -63,7 +63,7 @@ trait SushiToCsv
          */
         static::creating(
             function ($model): void {
-                $model->id = (int) ($model->max('id')) + 1;
+                $model->id = (int) $model->max('id') + 1;
                 $model->updated_at = now();
                 $model->updated_by = authId();
                 $model->created_at = now();
@@ -80,7 +80,6 @@ trait SushiToCsv
                 }
 
                 $writer->insertOne($item);
-
             }
         );
         /*
@@ -96,7 +95,7 @@ trait SushiToCsv
                 $new = array_merge($rows[$id], $model->toArray());
                 $rows[$id] = $new;
                 $dataArray = array_values($rows);
-                //$header=$model->getCsvHeader();
+                // $header=$model->getCsvHeader();
                 $header = array_keys($new);
                 $writer = Writer::createFromPath($model->getCsvPath(), 'w+');
                 $writer->insertOne($header);

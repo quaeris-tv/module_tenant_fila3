@@ -15,13 +15,11 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Str;
 use Nwidart\Modules\Facades\Module;
-use ReflectionException;
-use Webmozart\Assert\Assert;
 
-use function chr;
-use function is_array;
 use function Safe\preg_replace;
 use function Safe\realpath;
+
+use Webmozart\Assert\Assert;
 
 /**
  * Class TenantService.
@@ -42,7 +40,7 @@ class TenantService
         $default = Str::after($default, '//');
 
         $server_name = $default;
-        if (isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] !== '127.0.0.1') {
+        if (isset($_SERVER['SERVER_NAME']) && '127.0.0.1' !== $_SERVER['SERVER_NAME']) {
             $server_name = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
         }
         if (! is_string($server_name)) {
@@ -78,7 +76,7 @@ class TenantService
             return 'localhost';
         }
 
-        if ($default === '') {
+        if ('' === $default) {
             return 'localhost';
         }
 
@@ -114,11 +112,11 @@ class TenantService
             return config($key, $default);
         }
         */
-        if (inAdmin() && Str::startsWith($key, 'morph_map') && Request::segment(2) !== null) {
+        if (inAdmin() && Str::startsWith($key, 'morph_map') && null !== Request::segment(2)) {
             $module_name = Request::segment(2);
             $models = getModuleModels($module_name);
             $original_conf = config('morph_map');
-            if (! is_array($original_conf)) {
+            if (! \is_array($original_conf)) {
                 $original_conf = [];
             }
 
@@ -128,7 +126,7 @@ class TenantService
                 $tenant_conf = File::getRequire($path);
             }
 
-            if (! is_array($tenant_conf)) {
+            if (! \is_array($tenant_conf)) {
                 $tenant_conf = [];
             }
 
@@ -139,11 +137,11 @@ class TenantService
             Config::set('morph_map', $merge_conf);
             $res = config($key);
 
-            if (is_numeric($res) || \is_string($res) || is_array($res)) {
+            if (is_numeric($res) || \is_string($res) || \is_array($res)) {
                 return $res;
             }
 
-            throw new Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(__CLASS__).']');
         }
 
         $group = collect(explode('.', $key))->first();
@@ -154,22 +152,22 @@ class TenantService
         $config_name = str_replace('/', '.', $tenant_name).'.'.$group;
         $extra_conf = config($config_name);
 
-        if (! is_array($original_conf)) {
+        if (! \is_array($original_conf)) {
             $original_conf = [];
         }
 
-        if (! is_array($extra_conf)) {
+        if (! \is_array($extra_conf)) {
             $extra_conf = [];
         }
 
         // -- ogni modulo ha la sua connessione separata
         // -- replicazione liveuser con lu.. tenere lu anche in database
-        if ($key === 'database') {
+        if ('database' === $key) {
             $default = Arr::get($extra_conf, 'default', null);
-            if ($default === null) {
+            if (null === $default) {
                 $default = Arr::get($original_conf, 'default', null);
             }
-            if ($default === null) {
+            if (null === $default) {
                 // $default = 'mysql';
                 $default = env('DB_CONNECTION', 'mysql');
             }
@@ -187,15 +185,15 @@ class TenantService
         }
 
         $merge_conf = collect($original_conf)->merge($extra_conf)->all();
-        if ($group === null) {
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+        if (null === $group) {
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         Config::set($group, $merge_conf);
 
         $res = config($key);
 
-        if ($res === null && $default !== null) {
+        if (null === $res && null !== $default) {
             $index = Str::after($key, $group.'.');
             $data = Arr::set($extra_conf, $index, $default);
             /*
@@ -207,19 +205,19 @@ class TenantService
                 'data' => $data,
             ]);
             */
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
             // self::saveConfig($group,$data);
 
             // return $default;
         }
 
         // dddx(gettype($res));//array;
-        if (is_numeric($res) || \is_string($res) || is_array($res) || $res === null) {
+        if (is_numeric($res) || \is_string($res) || \is_array($res) || null === $res) {
             return $res;
         }
 
         dddx($res);
-        throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+        throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         // return $res;
     }
 
@@ -235,10 +233,10 @@ class TenantService
         $path = self::filePath($name.'.php');
         try {
             $data = File::getRequire($path);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $data = [];
         }
-        if (! is_array($data)) {
+        if (! \is_array($data)) {
             $data = [];
         }
 
@@ -254,7 +252,7 @@ class TenantService
             $config_data = File::getRequire($path);
         }
 
-        if (! is_array($config_data)) {
+        if (! \is_array($config_data)) {
             $config_data = [];
         }
 
@@ -263,7 +261,7 @@ class TenantService
         $config_data = Arr::sortRecursive($config_data);
 
         $path = self::filePath($name.'.php');
-        $content = '<?php'.chr(13).chr(13).' return '.var_export($config_data, true).';';
+        $content = '<?php'.\chr(13).\chr(13).' return '.var_export($config_data, true).';';
         $content = str_replace('\\\\', '\\', $content);
 
         File::put($path.'', $content);
@@ -280,10 +278,10 @@ class TenantService
         // $class = \Illuminate\Database\Eloquent\Relations\Relation::getMorphedModel($name);
         $class = self::config('morph_map.'.$name);
 
-        if ($class === null) {
+        if (null === $class) {
             $models = getAllModulesModels();
             if (! isset($models[$name])) {
-                throw new Exception('model unknown ['.$name.']
+                throw new \Exception('model unknown ['.$name.']
                 [line:'.__LINE__.']['.basename(__FILE__).']');
             }
 
@@ -295,7 +293,7 @@ class TenantService
 
         // $model = app($class);
         if (! \is_string($class)) {
-            if (is_array($class)) {
+            if (\is_array($class)) {
                 Assert::string($res = $class[0]);
 
                 return $res;
@@ -314,14 +312,14 @@ class TenantService
         // but returns object.
         // $model = new $class();
         if (! \is_string($class)) {
-            throw new Exception('['.__LINE__.']['.class_basename(self::class).']');
+            throw new \Exception('['.__LINE__.']['.class_basename(self::class).']');
         }
 
         return $class;
     }
 
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public static function model(string $name): Model
     {
@@ -334,23 +332,23 @@ class TenantService
      * deprecated non dobbiamo usare in tenant robe di panel .. tenant dipende solo da xot.
      *
      * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws ReflectionException
-     *                             public static function modelEager(string $name): \Illuminate\Database\Eloquent\Builder {
-     *                             $model = self::model($name);
-     *                             // Strict comparison using === between null and Illuminate\Database\Eloquent\Model will always evaluate to false.
-     *                             // if (null === $model) {
-     *                             // return null;
-     *                             //    throw new \Exception('model is null');
-     *                             // }
-     *                             $panel = PanelService::make()->get($model);
-     *                             // Strict comparison using === between null and Modules\Cms\Contracts\PanelContract will always evaluate to false.
-     *                             // if (null === $panel) {
-     *                             // return null;
-     *                             //    throw new \Exception('panel is null');
-     *                             // }
-     *                             $with = $panel->with();
-     *                             // $model = $model->load($with);
-     *                             $model = $model->with($with);
+     * @throws \ReflectionException
+     *                                                                public static function modelEager(string $name): \Illuminate\Database\Eloquent\Builder {
+     *                                                                $model = self::model($name);
+     *                                                                // Strict comparison using === between null and Illuminate\Database\Eloquent\Model will always evaluate to false.
+     *                                                                // if (null === $model) {
+     *                                                                // return null;
+     *                                                                //    throw new \Exception('model is null');
+     *                                                                // }
+     *                                                                $panel = PanelService::make()->get($model);
+     *                                                                // Strict comparison using === between null and Modules\Cms\Contracts\PanelContract will always evaluate to false.
+     *                                                                // if (null === $panel) {
+     *                                                                // return null;
+     *                                                                //    throw new \Exception('panel is null');
+     *                                                                // }
+     *                                                                $with = $panel->with();
+     *                                                                // $model = $model->load($with);
+     *                                                                $model = $model->with($with);
      *
      * return $model;
      * }
@@ -411,7 +409,7 @@ class TenantService
 
         return collect($files)
             ->filter(
-                static fn ($item): bool => $item->getExtension() === 'php'
+                static fn ($item): bool => 'php' === $item->getExtension()
             )
             ->map(
                 static fn ($item, $k): array => [
@@ -432,8 +430,8 @@ class TenantService
         try {
             /** @var array */
             $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
         }
         $modules = [];
         foreach ($json as $name => $enabled) {
