@@ -22,8 +22,9 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     protected string $module_ns = __NAMESPACE__;
 
-    public function bootCallback(): void
+    public function boot(): void
     {
+        parent::boot();
         $this->mergeConfigs();
         $this->registerDB();
         $this->registerMorphMap();
@@ -58,8 +59,9 @@ class TenantServiceProvider extends XotBaseServiceProvider
         Schema::defaultStringLength(191);
     }
 
-    public function registerCallback(): void
+    public function register(): void
     {
+        parent::register();
         $this->app->register(Filament\AdminPanelProvider::class);
     }
 
