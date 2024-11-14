@@ -8,21 +8,19 @@ declare(strict_types=1);
 namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
 use Filament\Actions;
-use Filament\Resources\Pages\ListRecords;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Enums\ActionsPosition;
-use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Table;
-use Modules\Tenant\Filament\Resources\DomainResource;
 use Modules\UI\Enums\TableLayoutEnum;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Enums\FiltersLayout;
+use Filament\Resources\Pages\ListRecords;
+use Filament\Tables\Enums\ActionsPosition;
 use Modules\Xot\Filament\Traits\TransTrait;
+use Modules\Xot\Filament\Pages\XotBaseListRecords;
+use Modules\Tenant\Filament\Resources\DomainResource;
 
-class ListDomains extends ListRecords
+class ListDomains extends XotBaseListRecords
 {
-    use TransTrait;
-
-    public TableLayoutEnum $layoutView = TableLayoutEnum::LIST;
-
+    
     protected static string $resource = DomainResource::class;
 
     public function table(Table $table): Table
