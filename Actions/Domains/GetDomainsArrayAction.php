@@ -35,7 +35,7 @@ class GetDomainsArrayAction
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
-            $name = Str::after($dir, $path.'/');
+            $name = Str::after($dir, $path . '/');
             if (\in_array($name, ['lang'], true)) {
                 continue;
             }
@@ -49,7 +49,7 @@ class GetDomainsArrayAction
     {
         $res = [];
         foreach ($data as $k0 => $v0) {
-            $newkey = ('' === $k) ? $k0 : $k0.'.'.$k;
+            $newkey = ('' === $k) ? $k0 : $k0 . '.' . $k;
             if ([] === $v0) {
                 $res[] = $newkey;
             }
