@@ -17,8 +17,11 @@
         "role": "Developer"
     }],
     "require": {
+        
     },
-    
+    "require-dev": {
+        
+    },
     "repositories_comment": [
         {
             "type": "path",
@@ -51,7 +54,7 @@
         }
     },
     "scripts": {
-        "post-autoload-dump": [
+        "post-autoload-dump1": [
             "@php vendor/bin/testbench package:discover --ansi"
         ],
         "post-update-cmd": [
