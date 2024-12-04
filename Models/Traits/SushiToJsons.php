@@ -23,8 +23,8 @@ trait SushiToJsons
     public function getSushiRows(): array
     {
         $tbl = $this->getTable();
-        $path = TenantService::filePath('database/content/' . $tbl);
-        $files = File::glob($path . '/*.json');
+        $path = TenantService::filePath('database/content/'.$tbl);
+        $files = File::glob($path.'/*.json');
         $rows = [];
         foreach ($files as $id => $file) {
             $json = File::json($file);
@@ -47,7 +47,7 @@ trait SushiToJsons
         Assert::string($tbl = $this->getTable());
         Assert::string($id = $this->getKey());
 
-        $filename = 'database/content/' . $tbl . '/' . $id . '.json';
+        $filename = 'database/content/'.$tbl.'/'.$id.'.json';
 
         $file = TenantService::filePath($filename);
 
@@ -72,6 +72,9 @@ trait SushiToJsons
                 $model->created_by = authId();
                 $data = $model->toArray();
                 $item = [];
+                if (! is_iterable($model->schema)) {
+                    throw new \Exception('Schema not iterable');
+                }
                 foreach ($model->schema as $name => $type) {
                     $value = $data[$name] ?? null;
                     $item[$name] = $value;
