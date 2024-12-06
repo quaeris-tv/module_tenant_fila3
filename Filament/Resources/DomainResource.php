@@ -67,11 +67,7 @@ class DomainResource extends Resource
     //         ->columns([
     //             // thumbnail
     //             ImageColumn::make('thumbnail')
-<<<<<<< HEAD
-    //                 
-=======
     //
->>>>>>> origin/v0.2.10
     //                 ->rounded(),
 
     //             // title
