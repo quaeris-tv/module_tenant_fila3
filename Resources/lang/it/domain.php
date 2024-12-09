@@ -3,14 +3,37 @@
 declare(strict_types=1);
 
 return [
+    'navigation' => [
+        'plural' => 'Domini',
+        'group' => [
+            'name' => 'Admin',
+        ],
+    ],
     'fields' => [
-        'domain' => ['label' => 'Dominio'],
-        'domains' => ['label' => 'Domini'],
-        'list' => ['label' => 'Lista Domini'],
-        'create' => ['label' => 'Crea Dominio'],
-        'edit' => ['label' => 'Modifica Dominio'],
-        'destroy' => ['label' => 'Elimina Dominio'],
-        'name' => ['label' => 'Nome'],
+        'domain' => [
+            'label' => 'Dominio',
+        ],
+        'domains' => [
+            'label' => 'Domini',
+        ],
+        'list' => [
+            'label' => 'Lista Domini',
+        ],
+        'create' => [
+            'label' => 'Crea Dominio',
+        ],
+        'edit' => [
+            'label' => 'Modifica Dominio',
+        ],
+        'destroy' => [
+            'label' => 'Elimina Dominio',
+        ],
+        'name' => [
+            'label' => 'Nome',
+        ],
+        'rating' => [
+            'label' => 'rating',
+        ],
     ],
     'actions' => [
         'domain_created' => 'Dominio creato con successo',
