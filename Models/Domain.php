@@ -20,7 +20,7 @@ use Sushi\Sushi;
  * @method static \Illuminate\Database\Eloquent\Builder|Domain whereName($value)
  * @mixin \Eloquent
  */
-class Domain extends Model
+class Domain extends BaseModel
 {
     use Sushi;
 
