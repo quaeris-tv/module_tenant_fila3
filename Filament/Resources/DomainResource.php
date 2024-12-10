@@ -21,27 +21,17 @@ class DomainResource extends \Modules\Xot\Filament\Resources\XotBaseResource
     {
         return $form
             ->schema([
-                // title
                 TextInput::make('title'),
-
-                // brand
                 TextInput::make('brand'),
-
-                // category
                 TextInput::make('category'),
-
-                // description
                 RichEditor::make('description'),
-
-                // price
                 TextInput::make('price')
                     ->prefix('$'),
-
-                // rating
                 TextInput::make('rating')
                     ->numeric(),
             ]);
     }
+
 
     public static function getRelations(): array
     {

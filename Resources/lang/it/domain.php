@@ -48,3 +48,4 @@ return [
         'domain_set_primary' => 'Dominio impostato come principale con successo',
     ],
 ];
+
