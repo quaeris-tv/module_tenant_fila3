@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources;
 
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 use Modules\Tenant\Models\Domain;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
+use Modules\Xot\Filament\Resources\XotBaseResource;
+use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
-class DomainResource extends \Modules\Xot\Filament\Resources\XotBaseResource
+class DomainResource extends XotBaseResource
 {
     protected static ?string $model = Domain::class;
 
