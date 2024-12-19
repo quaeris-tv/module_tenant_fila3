@@ -4,20 +4,15 @@ declare(strict_types=1);
 
 namespace Modules\Tenant\Filament\Resources;
 
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
-use Filament\Tables\Columns\BadgeColumn;
-use Filament\Tables\Columns\ImageColumn;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Table;
-use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 use Modules\Tenant\Models\Domain;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\RichEditor;
+use Modules\Xot\Filament\Resources\XotBaseResource;
+use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
-class DomainResource extends Resource
+class DomainResource extends XotBaseResource
 {
     protected static ?string $model = Domain::class;
 
@@ -27,28 +22,18 @@ class DomainResource extends Resource
     {
         return $form
             ->schema([
-                // title
                 TextInput::make('title'),
-
-                // brand
                 TextInput::make('brand'),
-
-                // category
                 TextInput::make('category'),
-
-                // description
                 RichEditor::make('description'),
-
-                // price
                 TextInput::make('price')
                     ->prefix('$'),
-
-                // rating
                 TextInput::make('rating')
                     ->numeric(),
             ]);
     }
 
+<<<<<<< HEAD
     // public static function table(Table $table): Table
     // {
     //     return $table
@@ -142,6 +127,8 @@ class DomainResource extends Resource
     //         ->emptyStateActions([
     //         ]);
     // }
+=======
+>>>>>>> origin/dev
 
     public static function getRelations(): array
     {
