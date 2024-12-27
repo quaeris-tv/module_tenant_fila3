@@ -16,7 +16,7 @@ use function Safe\realpath;
 
 class TenantServiceProvider extends XotBaseServiceProvider
 {
-    public string $name = 'tenant';
+    public string $name = 'Tenant';
 
     protected string $module_dir = __DIR__;
 
