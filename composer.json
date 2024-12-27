@@ -11,23 +11,20 @@
     ],
     "homepage": "https://github.com/laraxot/module_tenant_fila3",
     "license": "MIT",
-    "authors": [{
-        "name": "Marco Xot",
-        "email": "marco.sottana@gmail.com",
-        "role": "Developer"
-    }],
-    "require": {
-        
-    },
-    "require-dev": {
-        
-    },
+    "authors": [
+        {
+            "name": "Marco Xot",
+            "email": "marco.sottana@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {},
+    "require-dev": {},
     "repositories_comment": [
         {
             "type": "path",
             "url": "../User"
         },
-
         {
             "type": "path",
             "url": "../Media"
@@ -48,7 +45,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Modules\\Tenant\\": "",
+            "Modules\\Tenant\\": "app/",
             "Modules\\Tenant\\Database\\Factories\\": "database/factories/",
             "Modules\\Tenant\\Database\\Seeders\\": "database/seeders/"
         }
