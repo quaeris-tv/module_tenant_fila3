@@ -52,7 +52,7 @@ class GetTenantNameAction
 
         // default
 
-        $default = str_replace('.', '-', $default);
+        $default = str_replace('.', '/', $default);
         if (! file_exists(base_path('config/'.$default))) {
             return 'localhost';
         }
