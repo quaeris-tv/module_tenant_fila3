@@ -6,7 +6,7 @@ namespace Modules\Tenant\Filament\Resources\DomainResource\Pages;
 
 use Filament\Tables\Columns\TextColumn;
 use Modules\Tenant\Filament\Resources\DomainResource;
-use Modules\Xot\Filament\Pages\XotBaseListRecords;
+use Modules\Xot\Filament\Resources\Pages\XotBaseListRecords;
 
 class ListDomains extends XotBaseListRecords
 {
