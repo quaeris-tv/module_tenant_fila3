@@ -38,7 +38,7 @@ trait SushiToCsv
     public function getCsvPath(): string
     {
         Assert::string($tbl = $this->getTable());
-        $file = $tbl . '.csv';
+        $file = $tbl.'.csv';
         $path = TenantService::filePath($file);
 
         return $path;

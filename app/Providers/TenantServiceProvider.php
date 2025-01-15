@@ -48,7 +48,7 @@ class TenantServiceProvider extends XotBaseServiceProvider
 
     public function registerDB(): void
     {
-        if (Request::has('act') && 'migrate' === Request::input('act')) {
+        if (Request::has('act') && Request::input('act') === 'migrate') {
             DB::purge('mysql'); // Call to a member function prepare() on null
             DB::reconnect('mysql');
         }
