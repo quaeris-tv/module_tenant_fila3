@@ -24,7 +24,7 @@ class GetTenantNameAction
         $default = Str::after($default, '//');
 
         $server_name = $default;
-        if (isset($_SERVER['SERVER_NAME']) && '127.0.0.1' !== $_SERVER['SERVER_NAME']) {
+        if (isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] !== '127.0.0.1') {
             // $server_name = $_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'];
             $server_name = $_SERVER['SERVER_NAME'];
         }
@@ -57,7 +57,7 @@ class GetTenantNameAction
             return 'localhost';
         }
 
-        if ('' === $default) {
+        if ($default === '') {
             return 'localhost';
         }
 

@@ -10,11 +10,10 @@ namespace Modules\Tenant\Models\Traits;
 
 use Illuminate\Support\Facades\File;
 use Modules\Tenant\Services\TenantService;
+use Webmozart\Assert\Assert;
 
 use function Safe\json_encode;
 use function Safe\unlink;
-
-use Webmozart\Assert\Assert;
 
 trait SushiToJsons
 {
