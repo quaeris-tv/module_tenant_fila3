@@ -31,7 +31,7 @@ class GetDomainsArrayAction
 
     public function recurse(string $path): array
     {
-        $filesystem = new Filesystem;
+        $filesystem = new Filesystem();
         $directories = $filesystem->directories($path);
         $res = [];
         foreach ($directories as $dir) {
