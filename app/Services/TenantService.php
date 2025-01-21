@@ -342,12 +342,12 @@ class TenantService
 
         //  Using $this when not in object context
         // $this->publishes([
-        //    __DIR__ . '/../Config/xra.php' => config_path('xra.php'),
+        //    __DIR__ . '/../config/xra.php' => config_path('xra.php'),
         // ], 'config');
 
         // Using $this when not in object context
         // $this->mergeConfigFrom(, 'xra');
-        // $path = __DIR__.'/../Config/xra.php';
+        // $path = __DIR__.'/../config/xra.php';
         // $key = 'xra';
         // $config = app()->make('config');
         // $config->set($key, array_merge(
