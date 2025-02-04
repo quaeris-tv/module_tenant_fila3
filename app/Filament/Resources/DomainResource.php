@@ -20,6 +20,7 @@ class DomainResource extends XotBaseResource
     public static function getFormSchema(): array
     {
         return [
+            // Define your form schema here
             TextInput::make('title'),
             TextInput::make('brand'),
             TextInput::make('category'),
