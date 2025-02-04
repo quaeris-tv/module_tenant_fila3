@@ -45,7 +45,7 @@ class DomainResource extends Resource
                 // rating
                 TextInput::make('rating')
                     ->numeric(),
-            ]);
+            ];
     }
 
     // public static function table(Table $table): Table
