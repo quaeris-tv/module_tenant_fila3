@@ -23,11 +23,10 @@ class DomainResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Form $form): Form
+    public static function getFormSchema(): array
     {
-        return $form
-            ->schema([
-                // title
+        return [
+            // title
                 TextInput::make('title'),
 
                 // brand
@@ -46,7 +45,7 @@ class DomainResource extends Resource
                 // rating
                 TextInput::make('rating')
                     ->numeric(),
-            ]);
+        ]; 
     }
 
     // public static function table(Table $table): Table
