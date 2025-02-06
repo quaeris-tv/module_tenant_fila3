@@ -19,4 +19,3 @@ class DomainFactory extends Factory
         return [];
     }
 }
-

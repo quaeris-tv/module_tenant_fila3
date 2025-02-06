@@ -6,7 +6,6 @@ namespace Modules\Tenant\Filament\Resources;
 
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Form;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 use Modules\Tenant\Models\Domain;
 use Modules\Xot\Filament\Resources\XotBaseResource;

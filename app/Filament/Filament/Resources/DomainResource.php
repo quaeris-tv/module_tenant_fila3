@@ -27,25 +27,25 @@ class DomainResource extends Resource
     {
         return [
             // title
-                TextInput::make('title'),
+            TextInput::make('title'),
 
-                // brand
-                TextInput::make('brand'),
+            // brand
+            TextInput::make('brand'),
 
-                // category
-                TextInput::make('category'),
+            // category
+            TextInput::make('category'),
 
-                // description
-                RichEditor::make('description'),
+            // description
+            RichEditor::make('description'),
 
-                // price
-                TextInput::make('price')
-                    ->prefix('$'),
+            // price
+            TextInput::make('price')
+                ->prefix('$'),
 
-                // rating
-                TextInput::make('rating')
-                    ->numeric(),
-        ]; 
+            // rating
+            TextInput::make('rating')
+                ->numeric(),
+        ];
     }
 
     // public static function table(Table $table): Table
