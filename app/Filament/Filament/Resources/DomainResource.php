@@ -17,7 +17,7 @@ use Filament\Tables\Table;
 use Modules\Tenant\Filament\Resources\DomainResource\Pages;
 use Modules\Tenant\Models\Domain;
 
-class DomainResource extends Resource
+class DomainResource extends \Modules\Xot\Filament\Resources\XotBaseResource
 {
     protected static ?string $model = Domain::class;
 

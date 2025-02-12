@@ -8,7 +8,7 @@ use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Modules\Tenant\Filament\Resources\DomainResource;
 
-class EditDomain extends EditRecord
+class EditDomain extends \Modules\Xot\Filament\Resources\Pages\XotBaseEditRecord
 {
     protected static string $resource = DomainResource::class;
 
