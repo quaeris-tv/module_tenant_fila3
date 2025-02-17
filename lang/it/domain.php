@@ -7,7 +7,7 @@
       'name' => 'Admin',
     ),
     'label' => 'domain.navigation',
-    'sort' => 5,
+    'sort' => 6,
   ),
   'fields' => 
   array (
