@@ -133,4 +133,4 @@ return [
             'occupation' => 'Occupazione',
         ],
     ],
-]; 
+];
