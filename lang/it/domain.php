@@ -8,6 +8,7 @@
     ),
     'label' => 'domain.navigation',
     'sort' => 6,
+    'icon' => 'tenant-domain-animated',
   ),
   'fields' => 
   array (

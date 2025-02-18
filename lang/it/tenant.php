@@ -7,7 +7,7 @@ return [
         'name' => 'Tenant',
         'group' => 'Sistema',
         'sort' => 25,
-        'icon' => 'tenant-icon',
+        'icon' => 'tenant-main-animated',
         'badge' => [
             'color' => 'success',
             'label' => 'Multi-tenant',
@@ -20,7 +20,7 @@ return [
                 'name' => 'Edifici',
                 'group' => 'Tenant',
                 'sort' => 10,
-                'icon' => 'tenant-building-icon',
+                'icon' => 'tenant-building-animated',
                 'badge' => [
                     'color' => 'info',
                     'label' => 'Gestione',
