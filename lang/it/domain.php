@@ -1,4 +1,5 @@
-<?php return array (
+<?php 
+return array (
   'navigation' => 
   array (
     'plural' => 'Domini',
@@ -6,7 +7,7 @@
     array (
       'name' => 'Admin',
     ),
-    'label' => 'domain.navigation',
+    'label' => 'domain',
     'sort' => 6,
     'icon' => 'tenant-domain-animated',
   ),
@@ -69,4 +70,4 @@
       'label' => 'domain.plural.model',
     ),
   ),
-);
+);
