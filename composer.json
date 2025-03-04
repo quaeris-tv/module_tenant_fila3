@@ -3,6 +3,7 @@
     "description": "tenant module for software architecture that allows a single instance of a software application to serve multiple tenants",
     "keywords": [
         "laraxot",
+        "Xot",
         "laravel",
         "filament",
         "module_tenant",

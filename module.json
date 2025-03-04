@@ -2,7 +2,7 @@
     "name": "Tenant",
     "alias": "tenant",
     "description": "",
-    "keywords": [],
+    "keywords": ["xot"],
     "priority": 2,
     "active": 1,
     "order": 2,
