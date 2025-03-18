@@ -20,13 +20,13 @@ class DomainResource extends XotBaseResource
     {
         return [
             // Define your form schema here
-            TextInput::make('title'),
-            TextInput::make('brand'),
-            TextInput::make('category'),
-            RichEditor::make('description'),
-            TextInput::make('price')
+            'title' => TextInput::make('title'),
+            'brand' => TextInput::make('brand'),
+            'category' => TextInput::make('category'),
+            'description' => RichEditor::make('description'),
+            'price' => TextInput::make('price')
                 ->prefix('$'),
-            TextInput::make('rating')
+            'rating' => TextInput::make('rating')
                 ->numeric(),
         ];
     }
