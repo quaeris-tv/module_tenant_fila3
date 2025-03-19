@@ -14,20 +14,33 @@ class DomainResource extends XotBaseResource
 {
     protected static ?string $model = Domain::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
     public static function getFormSchema(): array
     {
         return [
-            // Define your form schema here
-            'title' => TextInput::make('title'),
-            'brand' => TextInput::make('brand'),
-            'category' => TextInput::make('category'),
-            'description' => RichEditor::make('description'),
+            'title' => TextInput::make('title')
+                ->required()
+                ->string()
+                ->maxLength(255),
+            'brand' => TextInput::make('brand')
+                ->required()
+                ->string()
+                ->maxLength(255),
+            'category' => TextInput::make('category')
+                ->required()
+                ->string()
+                ->maxLength(255),
+            'description' => RichEditor::make('description')
+                ->required()
+                ->string(),
             'price' => TextInput::make('price')
+                ->required()
+                ->numeric()
                 ->prefix('$'),
             'rating' => TextInput::make('rating')
-                ->numeric(),
+                ->required()
+                ->numeric()
+                ->minValue(0)
+                ->maxValue(5),
         ];
     }
 
