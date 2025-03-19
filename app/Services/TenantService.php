@@ -303,6 +303,7 @@ class TenantService
      *                              // }
      *                              $with = $panel->with();
      *                              // $model = $model->load($with);
+     *                              $with = $panel->with;
      *                              $model = $model->with($with);
      *
      * return $model;
@@ -384,7 +385,7 @@ class TenantService
         $contents = File::get($filePath);
         try {
             /** @var array */
-            $json = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
+            $json = \Safe\json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
         } catch (\Exception $e) {
             throw new \Exception($e->getMessage().'['.$filePath.']['.__LINE__.']['.basename(__FILE__).']');
         }

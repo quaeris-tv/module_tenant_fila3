@@ -11,7 +11,7 @@ class EventServiceProvider extends BaseEventServiceProvider
     /**
      * The event handler mappings for the application.
      *
-     * @var array<string, array<int, string
+     * @var array<string, array<int, string>>
      */
     protected $listen = [];
 

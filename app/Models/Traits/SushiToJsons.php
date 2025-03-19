@@ -28,7 +28,7 @@ trait SushiToJsons
         foreach ($files as $id => $file) {
             $json = File::json($file);
             $item = [];
-            foreach ($this->schema as $name => $type) {
+            foreach ($this->schema ?? [] as $name => $type) {
                 $value = $json[$name] ?? null;
                 if (is_array($value)) {
                     $value = json_encode($value, JSON_PRETTY_PRINT);
@@ -72,9 +72,9 @@ trait SushiToJsons
                 $data = $model->toArray();
                 $item = [];
                 if (! is_iterable($model->schema)) {
-                    throw new \Exception('Schema not iterable');
+                    throw new \Exception('Schema not found');
                 }
-                foreach ($model->schema as $name => $type) {
+                foreach ($model->schema ?? [] as $name => $type) {
                     $value = $data[$name] ?? null;
                     $item[$name] = $value;
                 }
